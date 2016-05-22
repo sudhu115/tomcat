@@ -25,14 +25,22 @@ end
 #wget http://mirror.sdunix.com/apache/tomcat/tomcat-8/v8.0.23/bin/apache-tomcat-8.0.23.tar.gz
 remote_file 'apache-tomcat-8.0.33.tar.gz'  do 
 source 'http://mirror.sdunix.com/apache/tomcat/tomcat-8/v8.0.33/bin/apache-tomcat-8.0.33.tar.gz'
+not_if { File.exists?('apache-tomcat-8.0.33.tar.gz')}
 end
-directory 'opt/tomcat' do
+directory '/opt/tomcat/' do
 	action :create
 	group 'tomcat'
 end
 
 #TODO :Not Desired State
-execute 'tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat  --strip-components=1'
+#execute 'tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat  --strip-components=1'
+
+execute 'tar xvf apache-tomcat-8*tar.gz -C /opt/tomcat  --strip-components=1' 
+#cwd '/opt/tomcat'
+#not_if { File.exists?('tomcat')}
+
+
+
 
 #TODo esired State
 #excute 'chgrp -R tomcat conf' 
